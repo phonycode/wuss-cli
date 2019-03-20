@@ -1,0 +1,28 @@
+{
+  "name": "wuss-cli",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "wuss-cli": "node ./cra.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phonycode/wuss.git"
+  },
+  "author": "phonycode@Cnyballk",
+  "bugs": {
+    "url": "https://github.com/phonycode/wuss-cli/issues"
+  },
+  "bin": {
+    "wuss-cli": "./index.js"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "commander": "^2.19.0",
+    "fs-extra": "^7.0.1",
+    "inquirer": "^6.2.2",
+    "semver": "^5.6.0",
+    "validate-npm-package-name": "^3.0.0"
+  }
+}
