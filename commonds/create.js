@@ -31,17 +31,26 @@ const askTemplate = () => {
   });
   return inquirer.prompt(q);
 };
+const askWenaox = () => {
+  return inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'isWenaox',
+      message: '是否需要wenaox',
+    },
+  ]);
+};
 function copyTemplate(data) {
-  let { appTplName, appPath } = data;
+  let { appTplName, appPath, ...props } = data;
   let tplSrc = path.join(__dirname, '..', 'templates', appTplName);
   let appName = path.basename(appPath);
   if (fs.existsSync(appPath)) {
     console.log(chalk.red(`目录 ${appName} 已存在\n`));
     process.exit(1);
   }
-
   fs.ensureDirSync(appPath);
   fs.copySync(tplSrc, appPath);
+  writePackageJson({ ...props, appPath, appName });
   console.log(
     `\n项目 ${chalk.green(appName)} 创建成功, 路径: ${chalk.green(appPath)}\n`
   );
@@ -55,11 +64,24 @@ function copyTemplate(data) {
   console.log(`  cd ${path.relative(cwd, appPath)} && npm i `);
   console.log();
 }
+function writePackageJson({ isWenaox, appPath, appName }) {
+  const packagesDir = path.join(appPath, 'package.json');
+  const json = JSON.parse(fs.readFileSync(packagesDir, 'utf8'));
+  json.name = appName;
+  if (isWenaox) {
+    json.dependencies = {
+      ...json.dependencies,
+      wenaox: '',
+    };
+  }
+  fs.writeFileSync(packagesDir, JSON.stringify(json, null, 2), 'utf8');
+}
 
 async function init(appName) {
   const appPath = checkAppName(appName);
   const { appTplName } = await askTemplate();
-  copyTemplate({ appPath, appTplName });
+  const { isWenaox } = await askWenaox();
+  copyTemplate({ appPath, appTplName, isWenaox });
 }
 
 module.exports = init;

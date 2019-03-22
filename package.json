@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "wuss-cli": "node ./cra.js"
+    "test": "node ./index.js"
   },
   "repository": {
     "type": "git",

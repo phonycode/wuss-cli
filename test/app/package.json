@@ -1,6 +1,10 @@
 {
-  "name": "miniNative",
+  "name": "app",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "wuss-weapp": "^2.1.3",
+    "wenaox": ""
+  }
 }
